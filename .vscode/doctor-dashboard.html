@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <link rel="stylesheet" href="css/doctor-pages.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DocOnClick</div>
+                </a>
+                <button id="sidebar-toggle" class="sidebar-toggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="doctor-dashboard.html">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-appointments.html">
+                            <i class="fas fa-calendar-check"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-patients.html">
+                            <i class="fas fa-users"></i>
+                            <span>My Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-schedule.html">
+                            <i class="fas fa-clock"></i>
+                            <span>Schedule</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-prescriptions.html">
+                            <i class="fas fa-prescription"></i>
+                            <span>Prescriptions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-profile.html">
+                            <i class="fas fa-user-md"></i>
+                            <span>My Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-settings.html">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-info">
+                    <img id="doctor-avatar" src="img/default-avatar.png" alt="Doctor" class="user-avatar">
+                    <div class="user-details">
+                        <h4 id="doctor-name">Dr. John Doe</h4>
+                        <p id="doctor-specialization">Cardiologist</p>
+                    </div>
+                </div>
+                <button id="logout-btn" class="logout-btn">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h1>Doctor Dashboard</h1>
+                    <p id="welcome-message">Welcome back, Dr. John Doe</p>
+                </div>
+                <div class="header-right">
+                    <div class="header-actions">
+                        <button class="notification-btn">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="message-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span class="badge">5</span>
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon appointments">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Today's Appointments</h3>
+                        <h2 id="today-appointments">0</h2>
+                        <p>Next: <span id="next-appointment">No appointments</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon patients">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Total Patients</h3>
+                        <h2 id="total-patients">0</h2>
+                        <p>This month: <span id="new-patients">0 new</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon revenue">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Revenue</h3>
+                        <h2 id="total-revenue">₹0</h2>
+                        <p>This month: <span id="month-revenue">₹0</span></p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon ratings">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>Rating</h3>
+                        <h2 id="average-rating">0.0</h2>
+                        <p>Based on <span id="review-count">0</span> reviews</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <section class="dashboard-section appointments-section">
+                    <div class="section-header">
+                        <h2>Today's Appointments</h2>
+                        <a href="doctor-appointments.html" class="view-all">View All</a>
+                    </div>
+                    <div class="section-body">
+                        <table class="data-table" id="appointments-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="loading-row">
+                                    <td colspan="4">Loading appointments...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="dashboard-section calendar-section">
+                    <div class="section-header">
+                        <h2>Calendar</h2>
+                        <div class="calendar-nav">
+                            <button id="prev-month"><i class="fas fa-chevron-left"></i></button>
+                            <span id="current-month">May 2025</span>
+                            <button id="next-month"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                    <div class="section-body">
+                        <div class="calendar" id="doctor-calendar">
+                            <!-- Calendar will be generated by JS -->
+                        </div>
+                    </div>
+                </section>
+
+                <section class="dashboard-section patients-section">
+                    <div class="section-header">
+                        <h2>Recent Patients</h2>
+                        <a href="doctor-patients.html" class="view-all">View All</a>
+                    </div>
+                    <div class="section-body">
+                        <table class="data-table" id="patients-table">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Last Visit</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="loading-row">
+                                    <td colspan="4">Loading patients...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <section class="dashboard-section activity-section">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                    </div>
+                    <div class="section-body">
+                        <ul class="activity-list" id="activity-list">
+                            <li class="loading-item">Loading activity...</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Appointment Modal -->
+    <div id="appointment-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Appointment Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="appointment-details">
+                <!-- Appointment details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Close</button>
+                <button class="btn btn-primary" id="complete-appointment">Complete & Add Prescription</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prescription Modal -->
+    <div id="prescription-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create Prescription</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="prescription-form">
+                    <input type="hidden" id="appointment-id" name="appointmentId">
+                    
+                    <div class="form-group">
+                        <label for="diagnosis">Diagnosis</label>
+                        <textarea id="diagnosis" name="diagnosis" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="notes">Notes & Recommendations</label>
+                        <textarea id="notes" name="notes"></textarea>
+                    </div>
+                    
+                    <div class="medicines-section">
+                        <h3>Medications</h3>
+                        <div id="medicines-container">
+                            <!-- Medicine items will be added here -->
+                        </div>
+                        <button type="button" class="btn btn-outline btn-sm" id="add-medicine">
+                            <i class="fas fa-plus"></i> Add Medication
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Cancel</button>
+                <button class="btn btn-primary" id="save-prescription">Save Prescription</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/doctor-dashboard.js"></script>
+</body>
+</html>

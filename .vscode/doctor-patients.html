@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Patients - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <script src="https://kit.fontawesome.com/84095757d5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div style="background-color: #1F2B6C; color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 5px;">D</div>
+                    <div class="sidebar-logo-text">DocOnClick</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="doctor-dashboard.html">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-appointments.html">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="doctor-patients.html">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-prescriptions.html">
+                            <i class="fa-solid fa-file-medical"></i>
+                            <span>Prescriptions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-availability.html">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Availability</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info" id="doctor-info">
+                    <div class="user-avatar">
+                        <img src="img/doctor-placeholder.jpg" alt="Doctor" id="doctor-avatar">
+                    </div>
+                    <div class="user-details">
+                        <h4 id="doctor-name">Dr. John Doe</h4>
+                        <p id="doctor-specialization">Cardiologist</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-button" id="logout-button">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Patients</h1>
+                <p>Manage your patient records</p>
+                <button class="mobile-menu-button" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="dashboard-search">
+                <div class="search-container">
+                    <input type="text" id="patient-search" placeholder="Search patients by name, email or phone...">
+                    <button id="search-button">
+                        <i class="fa-solid fa-search"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="dashboard-stats">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Total Patients</h3>
+                        <p class="stat-number" id="total-patients">0</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-user-plus"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>New Patients</h3>
+                        <p class="stat-number" id="new-patients">0</p>
+                        <p class="stat-change">This month</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-details">
+                        <h3>Appointments</h3>
+                        <p class="stat-number" id="total-appointments">0</p>
+                        <p class="stat-change">Total appointments</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2>Patient List</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="data-table" id="patients-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Gender</th>
+                                    <th>Age</th>
+                                    <th>Phone</th>
+                                    <th>Email</th>
+                                    <th>Last Visit</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="7" class="text-center">Loading patients...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Patient Details Modal -->
+    <div id="patient-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="patient-details">
+                <!-- Patient details will be loaded here -->
+            </div>
+            <div class="patient-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="appointments">Appointments</button>
+                    <button class="tab-button" data-tab="prescriptions">Prescriptions</button>
+                    <button class="tab-button" data-tab="medical-history">Medical History</button>
+                </div>
+                <div class="tab-content active" id="appointments-tab">
+                    <table class="data-table" id="patient-appointments-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Time</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="text-center">Loading appointments...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-content" id="prescriptions-tab">
+                    <table class="data-table" id="patient-prescriptions-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Diagnosis</th>
+                                <th>Medications</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="4" class="text-center">Loading prescriptions...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="tab-content" id="medical-history-tab">
+                    <div class="medical-history-container" id="medical-history-container">
+                        <p class="text-center">Loading medical history...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/doctor-patients.js"></script>
+</body>
+</html>

@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/user-dashboard.css">
+    <link rel="stylesheet" href="css/user-settings.css">
+    <!-- <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="mailto:info@doconclick.com"><i class="fas fa-envelope"></i> info@DocOnClick.com</a>
+                    <a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123 456 7890</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DocOnClick</div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="doctors.html">Find Doctors</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <div class="user-profile" id="user-profile-toggle">
+                        <img src="/placeholder.svg" alt="Profile" id="header-profile-image">
+                        <span id="user-name">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" id="user-dropdown">
+                        <a href="user-dashboard.html"><i class="fas fa-columns"></i> Dashboard</a>
+                        <a href="user-profile.html"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="user-appointments.html"><i class="fas fa-calendar-check"></i> My Appointments</a>
+                        <a href="user-settings.html"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Settings Content -->
+    <div class="dashboard-container">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1>Settings</h1>
+                <p>Manage your account settings and preferences</p>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-sidebar">
+                    <div class="settings-menu">
+                        <a href="#notifications" class="settings-menu-item active" data-target="notifications-section">
+                            <i class="fas fa-bell"></i> Notifications
+                        </a>
+                        <a href="#privacy" class="settings-menu-item" data-target="privacy-section">
+                            <i class="fas fa-shield-alt"></i> Privacy
+                        </a>
+                        <a href="#security" class="settings-menu-item" data-target="security-section">
+                            <i class="fas fa-lock"></i> Security
+                        </a>
+                        <a href="#preferences" class="settings-menu-item" data-target="preferences-section">
+                            <i class="fas fa-sliders-h"></i> Preferences
+                        </a>
+                        <a href="#account" class="settings-menu-item" data-target="account-section">
+                            <i class="fas fa-user-cog"></i> Account
+                        </a>
+                    </div>
+                </div>
+
+                <div class="settings-details">
+                    <div id="notifications-section" class="settings-section active">
+                        <div class="section-header">
+                            <h3>Notification Settings</h3>
+                            <p>Manage how you receive notifications</p>
+                        </div>
+                        
+                        <div class="settings-form">
+                            <div id="notifications-status-message" class="status-message"></div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Email Notifications</h4>
+                                    <p>Receive notifications via email</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="email-notifications" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>SMS Notifications</h4>
+                                    <p>Receive notifications via SMS</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="sms-notifications" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Appointment Reminders</h4>
+                                    <p>Receive reminders before your appointments</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="appointment-reminders" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Promotional Emails</h4>
+                                    <p>Receive promotional offers and updates</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="promotional-emails">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" id="save-notifications-btn" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="privacy-section" class="settings-section">
+                        <div class="section-header">
+                            <h3>Privacy Settings</h3>
+                            <p>Manage your privacy preferences</p>
+                        </div>
+                        
+                        <div class="settings-form">
+                            <div id="privacy-status-message" class="status-message"></div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Profile Visibility</h4>
+                                    <p>Control who can see your profile information</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select id="profile-visibility">
+                                        <option value="public">Public</option>
+                                        <option value="private" selected>Private</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Show Medical History</h4>
+                                    <p>Allow doctors to see your medical history</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="show-medical-history" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Data Sharing</h4>
+                                    <p>Share your data for research purposes</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="data-sharing">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" id="save-privacy-btn" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="security-section" class="settings-section">
+                        <div class="section-header">
+                            <h3>Security Settings</h3>
+                            <p>Manage your account security</p>
+                        </div>
+                        
+                        <div class="settings-form">
+                            <div id="security-status-message" class="status-message"></div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Two-Factor Authentication</h4>
+                                    <p>Add an extra layer of security to your account</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="two-factor-auth">
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Login Notifications</h4>
+                                    <p>Get notified when someone logs into your account</p>
+                                </div>
+                                <div class="setting-control">
+                                    <label class="toggle">
+                                        <input type="checkbox" id="login-notifications" checked>
+                                        <span class="toggle-slider"></span>
+                                    </label>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" id="save-security-btn" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="preferences-section" class="settings-section">
+                        <div class="section-header">
+                            <h3>Preferences</h3>
+                            <p>Customize your experience</p>
+                        </div>
+                        
+                        <div class="settings-form">
+                            <div id="preferences-status-message" class="status-message"></div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Language</h4>
+                                    <p>Select your preferred language</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select id="language-preference">
+                                        <option value="en" selected>English</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                        <option value="de">German</option>
+                                        <option value="hi">Hindi</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="setting-item">
+                                <div class="setting-info">
+                                    <h4>Time Format</h4>
+                                    <p>Choose your preferred time format</p>
+                                </div>
+                                <div class="setting-control">
+                                    <select id="time-format">
+                                        <option value="12h" selected>12-hour (AM/PM)</option>
+                                        <option value="24h">24-hour</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" id="save-preferences-btn" class="btn btn-primary">Save Changes</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="account-section" class="settings-section">
+                        <div class="section-header">
+                            <h3>Account Settings</h3>
+                            <p>Manage your account</p>
+                        </div>
+                        
+                        <div class="settings-form">
+                            <div id="account-status-message" class="status-message"></div>
+                            
+                            <div class="danger-zone">
+                                <h4>Danger Zone</h4>
+                                <p>These actions are irreversible</p>
+                                
+                                <div class="danger-actions">
+                                    <button type="button" id="deactivate-account-btn" class="btn btn-outline btn-danger">
+                                        <i class="fas fa-user-slash"></i> Deactivate Account
+                                    </button>
+                                    <button type="button" id="delete-account-btn" class="btn btn-danger">
+                                        <i class="fas fa-trash-alt"></i> Delete Account
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div class="modal" id="confirm-delete-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Delete Account</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="warning-icon">
+                    <i class="fas fa-exclamation-triangle"></i>
+                </div>
+                <p>Are you sure you want to delete your account? This action cannot be undone and all your data will be permanently deleted.</p>
+                <div class="confirm-input">
+                    <label for="confirm-delete">Type "DELETE" to confirm:</label>
+                    <input type="text" id="confirm-delete" placeholder="DELETE">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Cancel</button>
+                <button class="btn btn-danger" id="confirm-delete-btn" disabled>Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">D</div>
+                        <div class="logo-text">DocOnClick</div>
+                    </div>
+                    <p>Your trusted healthcare partner. Book appointments with top doctors, manage your medical records, and get the care you deserve.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical City, 12345</p>
+                    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 DocOnClick. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/user-settings.js"></script>
+</body>
+</html>

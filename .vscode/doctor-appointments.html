@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Appointments - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <link rel="stylesheet" href="css/doctor-pages.css">
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div style="background-color: #1F2B6C; color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 5px;">D</div>
+                    <div class="sidebar-logo-text">DocOnClick</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="doctor-dashboard.html">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="doctor-appointments.html">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-patients.html">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-prescriptions.html">
+                            <i class="fa-solid fa-file-medical"></i>
+                            <span>Prescriptions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-availability.html">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Availability</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info" id="doctor-info">
+                    <div class="user-avatar">
+                        <img src="img/doctor-placeholder.jpg" alt="Doctor" id="doctor-avatar">
+                    </div>
+                    <div class="user-details">
+                        <h4 id="doctor-name">Dr. John Doe</h4>
+                        <p id="doctor-specialization">Cardiologist</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-button" id="logout-button">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Appointments</h1>
+                <p>Manage your patient appointments</p>
+                <button class="mobile-menu-button" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="dashboard-filters">
+                <div class="filter-group">
+                    <label for="appointment-date">Date:</label>
+                    <input type="date" id="appointment-date" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <label for="appointment-status">Status:</label>
+                    <select id="appointment-status" class="filter-input">
+                        <option value="">All</option>
+                        <option value="PENDING">Pending</option>
+                        <option value="CONFIRMED">Confirmed</option>
+                        <option value="COMPLETED">Completed</option>
+                        <option value="CANCELLED">Cancelled</option>
+                    </select>
+                </div>
+                <button class="filter-button" id="filter-appointments">
+                    <i class="fa-solid fa-filter"></i> Filter
+                </button>
+                <button class="filter-button" id="reset-filters">
+                    <i class="fa-solid fa-undo"></i> Reset
+                </button>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2>Appointment List</h2>
+                    <div class="tab-buttons">
+                        <button class="tab-button active" data-tab="upcoming">Upcoming</button>
+                        <button class="tab-button" data-tab="today">Today</button>
+                        <button class="tab-button" data-tab="past">Past</button>
+                        <button class="tab-button" data-tab="all">All</button>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="tab-content active" id="upcoming-tab">
+                        <div class="table-responsive">
+                            <table class="data-table" id="upcoming-appointments-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Payment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading appointments...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="today-tab">
+                        <div class="table-responsive">
+                            <table class="data-table" id="today-appointments-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Payment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Loading today's appointments...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="past-tab">
+                        <div class="table-responsive">
+                            <table class="data-table" id="past-appointments-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="5" class="text-center">Loading past appointments...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="tab-content" id="all-tab">
+                        <div class="table-responsive">
+                            <table class="data-table" id="all-appointments-table">
+                                <thead>
+                                    <tr>
+                                        <th>Patient</th>
+                                        <th>Date</th>
+                                        <th>Time</th>
+                                        <th>Status</th>
+                                        <th>Payment</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="6" class="text-center">Loading all appointments...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Appointment Details Modal -->
+    <div id="appointment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="appointment-details">
+                <!-- Appointment details will be loaded here -->
+            </div>
+            <div class="modal-actions" id="modal-actions">
+                <!-- Action buttons will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Prescription Modal -->
+    <div id="prescription-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Create Prescription</h2>
+            <form id="prescription-form">
+                <input type="hidden" id="appointment-id">
+                <div class="form-group">
+                    <label for="diagnosis">Diagnosis</label>
+                    <textarea id="diagnosis" name="diagnosis" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="notes">Notes & Recommendations</label>
+                    <textarea id="notes" name="notes" rows="3"></textarea>
+                </div>
+                <div class="medicines-section">
+                    <h3>Medications</h3>
+                    <div id="medicines-container">
+                        <div class="medicine-item">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="medicine-name-0">Medicine Name</label>
+                                    <input type="text" id="medicine-name-0" name="medicineName" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="dosage-0">Dosage</label>
+                                    <input type="text" id="dosage-0" name="dosage" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="frequency-0">Frequency</label>
+                                    <input type="text" id="frequency-0" name="frequency" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration-0">Duration (days)</label>
+                                    <input type="number" id="duration-0" name="durationDays" min="1" required>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="instructions-0">Instructions</label>
+                                <input type="text" id="instructions-0" name="instructions">
+                            </div>
+                        </div>
+                    </div>
+                    <button type="button" id="add-medicine" class="secondary-button">
+                        <i class="fa-solid fa-plus"></i> Add Medicine
+                    </button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save Prescription</button>
+                    <button type="button" class="secondary-button" id="cancel-prescription">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/doctor-appointments.js"></script>
+</body>
+</html>

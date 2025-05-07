@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find Doctors - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/user-dashboard.css">
+    <link rel="stylesheet" href="css/user-finddoctors.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="top-header">
+            <div class="container">
+                <div class="contact-info">
+                    <a href="mailto:info@doconclick.com"><i class="fas fa-envelope"></i> info@DocOnClick.com</a>
+                    <a href="tel:+1234567890"><i class="fas fa-phone-alt"></i> +123 456 7890</a>
+                </div>
+                <div class="social-icons">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="main-header">
+            <div class="container">
+                <a href="index.html" class="logo">
+                    <div class="logo-icon">D</div>
+                    <div class="logo-text">DocOnClick</div>
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="doctors.html" class="active">Find Doctors</a></li>
+                        <li><a href="book-appointment.html">Book Appointment</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="user-menu">
+                    <div class="user-profile" id="user-profile-toggle">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Profile" id="header-profile-image">
+                        <span id="user-name">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu" id="user-dropdown">
+                        <a href="user-dashboard.html"><i class="fas fa-columns"></i> Dashboard</a>
+                        <a href="user-profile.html"><i class="fas fa-user"></i> My Profile</a>
+                        <a href="user-appointments.html"><i class="fas fa-calendar-check"></i> My Appointments</a>
+                        <a href="user-settings.html"><i class="fas fa-cog"></i> Settings</a>
+                        <a href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="doctors-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Find the Right Doctor</h1>
+                <p>Search from our network of qualified healthcare professionals</p>
+                <div class="search-container">
+                    <div class="search-box">
+                        <input type="text" id="doctor-search" placeholder="Search by name, specialty, or location">
+                        <button id="search-btn"><i class="fas fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filters Section -->
+    <section class="filters-section">
+        <div class="container">
+            <div class="filters-container">
+                <div class="filter-group">
+                    <label for="specialty-filter">Specialty</label>
+                    <select id="specialty-filter">
+                        <option value="">All Specialties</option>
+                        <!-- Will be populated from API -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="location-filter">Location</label>
+                    <select id="location-filter">
+                        <option value="">All Locations</option>
+                        <!-- Will be populated from API -->
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="availability-filter">Availability</label>
+                    <select id="availability-filter">
+                        <option value="">Any Time</option>
+                        <option value="today">Today</option>
+                        <option value="tomorrow">Tomorrow</option>
+                        <option value="this_week">This Week</option>
+                        <option value="next_week">Next Week</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="gender-filter">Gender</label>
+                    <select id="gender-filter">
+                        <option value="">Any Gender</option>
+                        <option value="MALE">Male</option>
+                        <option value="FEMALE">Female</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="rating-filter">Rating</label>
+                    <select id="rating-filter">
+                        <option value="">Any Rating</option>
+                        <option value="4">4+ Stars</option>
+                        <option value="3">3+ Stars</option>
+                        <option value="2">2+ Stars</option>
+                    </select>
+                </div>
+                <div class="filter-actions">
+                    <button id="apply-filters" class="btn btn-primary">Apply Filters</button>
+                    <button id="clear-filters" class="btn btn-outline">Clear Filters</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctors List Section -->
+    <section class="doctors-list-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Available Doctors</h2>
+                <div class="sort-options">
+                    <label for="sort-by">Sort By:</label>
+                    <select id="sort-by">
+                        <option value="relevance">Relevance</option>
+                        <option value="rating">Rating</option>
+                        <option value="experience">Experience</option>
+                        <option value="fee_low">Fee: Low to High</option>
+                        <option value="fee_high">Fee: High to Low</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div id="doctors-container" class="doctors-grid">
+                <!-- Doctors will be loaded here -->
+                <div class="loading-spinner">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <p>Loading doctors...</p>
+                </div>
+            </div>
+            
+            <div id="pagination-container" class="pagination">
+                <!-- Pagination will be added here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Doctor Details Modal -->
+    <div class="modal" id="doctor-details-modal">
+        <div class="modal-content doctor-modal-content">
+            <div class="modal-header">
+                <h2>Doctor Details</h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body" id="doctor-details-content">
+                <!-- Doctor details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline close-modal">Close</button>
+                <button class="btn btn-primary" id="book-appointment-btn">Book Appointment</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="logo-icon">D</div>
+                        <div class="logo-text">DocOnClick</div>
+                    </div>
+                    <p>Your trusted healthcare partner. Book appointments with top doctors, manage your medical records, and get the care you deserve.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="doctors.html">Doctors</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Healthcare St, Medical City, 12345</p>
+                    <p><i class="fas fa-phone-alt"></i> +123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@doconclick.com</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 DocOnClick. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/user-finddoctors.js"></script>
+</body>
+</html>

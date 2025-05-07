@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Prescriptions - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <script src="https://kit.fontawesome.com/84095757d5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div style="background-color: #1F2B6C; color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 5px;">D</div>
+                    <div class="sidebar-logo-text">DocOnClick</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="doctor-dashboard.html">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-appointments.html">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-patients.html">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="doctor-prescriptions.html">
+                            <i class="fa-solid fa-file-medical"></i>
+                            <span>Prescriptions</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-availability.html">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Availability</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info" id="doctor-info">
+                    <div class="user-avatar">
+                        <img src="img/doctor-placeholder.jpg" alt="Doctor" id="doctor-avatar">
+                    </div>
+                    <div class="user-details">
+                        <h4 id="doctor-name">Dr. John Doe</h4>
+                        <p id="doctor-specialization">Cardiologist</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-button" id="logout-button">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Prescriptions</h1>
+                <p>Manage patient prescriptions</p>
+                <button class="mobile-menu-button" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="dashboard-filters">
+                <div class="filter-group">
+                    <label for="date-range">Date Range:</label>
+                    <select id="date-range" class="filter-input">
+                        <option value="all">All Time</option>
+                        <option value="today">Today</option>
+                        <option value="week">This Week</option>
+                        <option value="month">This Month</option>
+                        <option value="custom">Custom Range</option>
+                    </select>
+                </div>
+                <div class="filter-group custom-date-range" style="display: none;">
+                    <label for="start-date">From:</label>
+                    <input type="date" id="start-date" class="filter-input">
+                </div>
+                <div class="filter-group custom-date-range" style="display: none;">
+                    <label for="end-date">To:</label>
+                    <input type="date" id="end-date" class="filter-input">
+                </div>
+                <div class="filter-group">
+                    <label for="patient-filter">Patient:</label>
+                    <input type="text" id="patient-filter" class="filter-input" placeholder="Patient name">
+                </div>
+                <button class="filter-button" id="filter-prescriptions">
+                    <i class="fa-solid fa-filter"></i> Filter
+                </button>
+                <button class="filter-button" id="reset-filters">
+                    <i class="fa-solid fa-undo"></i> Reset
+                </button>
+            </div>
+
+            <div class="content-card">
+                <div class="card-header">
+                    <h2>Prescription List</h2>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="data-table" id="prescriptions-table">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Appointment</th>
+                                    <th>Diagnosis</th>
+                                    <th>Medications</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="6" class="text-center">Loading prescriptions...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Prescription Details Modal -->
+    <div id="prescription-details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div id="prescription-details">
+                <!-- Prescription details will be loaded here -->
+            </div>
+            <div class="modal-actions">
+                <button class="primary-button" id="print-prescription">
+                    <i class="fa-solid fa-print"></i> Print
+                </button>
+                <button class="secondary-button" id="edit-prescription">
+                    <i class="fa-solid fa-edit"></i> Edit
+                </button>
+                <button class="danger-button" id="delete-prescription">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Prescription Modal -->
+    <div id="edit-prescription-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Edit Prescription</h2>
+            <form id="edit-prescription-form">
+                <input type="hidden" id="prescription-id">
+                <div class="form-group">
+                    <label for="edit-diagnosis">Diagnosis</label>
+                    <textarea id="edit-diagnosis" name="diagnosis" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="edit-notes">Notes & Recommendations</label>
+                    <textarea id="edit-notes" name="notes" rows="3"></textarea>
+                </div>
+                <div class="medicines-section">
+                    <h3>Medications</h3>
+                    <div id="edit-medicines-container">
+                        <!-- Medicine items will be added here -->
+                    </div>
+                    <button type="button" id="edit-add-medicine" class="secondary-button">
+                        <i class="fa-solid fa-plus"></i> Add Medicine
+                    </button>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Update Prescription</button>
+                    <button type="button" class="secondary-button" id="cancel-edit">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/doctor-prescriptions.js"></script>
+</body>
+</html>

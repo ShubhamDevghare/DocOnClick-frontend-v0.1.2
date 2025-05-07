@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Availability - DocOnClick</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/doctor-dashboard.css">
+    <link rel="stylesheet" href="css/doctor-pages.css">
+
+    <script src="https://kit.fontawesome.com/84095757d5.js" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <div style="background-color: #1F2B6C; color: white; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 5px;">D</div>
+                    <div class="sidebar-logo-text">DocOnClick</div>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="doctor-dashboard.html">
+                            <i class="fa-solid fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-appointments.html">
+                            <i class="fa-solid fa-calendar-check"></i>
+                            <span>Appointments</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-patients.html">
+                            <i class="fa-solid fa-users"></i>
+                            <span>Patients</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-prescriptions.html">
+                            <i class="fa-solid fa-file-medical"></i>
+                            <span>Prescriptions</span>
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="doctor-availability.html">
+                            <i class="fa-solid fa-clock"></i>
+                            <span>Availability</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="doctor-settings.html">
+                            <i class="fa-solid fa-gear"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-info" id="doctor-info">
+                    <div class="user-avatar">
+                        <img src="img/doctor-placeholder.jpg" alt="Doctor" id="doctor-avatar">
+                    </div>
+                    <div class="user-details">
+                        <h4 id="doctor-name">Dr. John Doe</h4>
+                        <p id="doctor-specialization">Cardiologist</p>
+                    </div>
+                </div>
+                <a href="#" class="logout-button" id="logout-button">
+                    <i class="fa-solid fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="dashboard-content">
+            <div class="dashboard-header">
+                <h1>Availability Management</h1>
+                <p>Set your working hours and manage time slots</p>
+                <button class="mobile-menu-button" onclick="toggleSidebar()">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+
+            <div class="dashboard-tabs">
+                <div class="tab-buttons">
+                    <button class="tab-button active" data-tab="weekly">Weekly Schedule</button>
+                    <button class="tab-button" data-tab="holidays">Holidays</button>
+                    <button class="tab-button" data-tab="overrides">Date Overrides</button>
+                    <button class="tab-button" data-tab="slots">Time Slots</button>
+                </div>
+
+                <!-- Weekly Schedule Tab -->
+                <div class="tab-content active" id="weekly-tab">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Weekly Schedule</h2>
+                            <p>Set your regular working hours for each day of the week</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="weekly-schedule" id="weekly-schedule">
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Monday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="monday-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="monday-hours">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="monday-start">Start Time</label>
+                                                <input type="time" id="monday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="monday-end">End Time</label>
+                                                <input type="time" id="monday-end" value="17:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Tuesday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="tuesday-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="tuesday-hours">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="tuesday-start">Start Time</label>
+                                                <input type="time" id="tuesday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="tuesday-end">End Time</label>
+                                                <input type="time" id="tuesday-end" value="17:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Wednesday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="wednesday-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="wednesday-hours">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="wednesday-start">Start Time</label>
+                                                <input type="time" id="wednesday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="wednesday-end">End Time</label>
+                                                <input type="time" id="wednesday-end" value="17:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Thursday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="thursday-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="thursday-hours">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="thursday-start">Start Time</label>
+                                                <input type="time" id="thursday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="thursday-end">End Time</label>
+                                                <input type="time" id="thursday-end" value="17:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Friday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="friday-toggle" checked>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="friday-hours">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="friday-start">Start Time</label>
+                                                <input type="time" id="friday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="friday-end">End Time</label>
+                                                <input type="time" id="friday-end" value="17:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Saturday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="saturday-toggle">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="saturday-hours" style="display: none;">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="saturday-start">Start Time</label>
+                                                <input type="time" id="saturday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="saturday-end">End Time</label>
+                                                <input type="time" id="saturday-end" value="13:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="schedule-day">
+                                    <div class="day-header">
+                                        <h3>Sunday</h3>
+                                        <label class="switch">
+                                            <input type="checkbox" id="sunday-toggle">
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
+                                    <div class="day-hours" id="sunday-hours" style="display: none;">
+                                        <div class="time-range">
+                                            <div class="form-group">
+                                                <label for="sunday-start">Start Time</label>
+                                                <input type="time" id="sunday-start" value="09:00">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="sunday-end">End Time</label>
+                                                <input type="time" id="sunday-end" value="13:00">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" id="save-schedule" class="primary-button">
+                                    <i class="fa-solid fa-save"></i> Save Schedule
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Holidays Tab -->
+                <div class="tab-content" id="holidays-tab">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Holidays</h2>
+                            <p>Mark your holidays and days off</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="holiday-actions">
+                                <button id="mark-today" class="secondary-button">
+                                    <i class="fa-solid fa-calendar-day"></i> Mark Today as Holiday
+                                </button>
+                                <button id="add-holiday" class="primary-button">
+                                    <i class="fa-solid fa-plus"></i> Add Holiday
+                                </button>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table" id="holidays-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Day</th>
+                                            <th>Reason</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Loading holidays...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Date Overrides Tab -->
+                <div class="tab-content" id="overrides-tab">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Date Overrides</h2>
+                            <p>Set special hours for specific dates</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="override-actions">
+                                <button id="add-override" class="primary-button">
+                                    <i class="fa-solid fa-plus"></i> Add Date Override
+                                </button>
+                            </div>
+                            
+                            <div class="table-responsive">
+                                <table class="data-table" id="overrides-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Date</th>
+                                            <th>Status</th>
+                                            <th>Hours</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="4" class="text-center">Loading date overrides...</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slots Tab -->
+                <div class="tab-content" id="slots-tab">
+                    <div class="content-card">
+                        <div class="card-header">
+                            <h2>Time Slots</h2>
+                            <p>Manage your appointment time slots</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="slot-settings">
+                                <div class="form-group">
+                                    <label for="slot-duration">Slot Duration (minutes)</label>
+                                    <input type="number" id="slot-duration" min="5" step="5" value="30">
+                                </div>
+                                <button id="update-duration" class="secondary-button">
+                                    <i class="fa-solid fa-save"></i> Update Duration
+                                </button>
+                                <button id="generate-slots" class="primary-button">
+                                    <i class="fa-solid fa-sync"></i> Generate Time Slots
+                                </button>
+                            </div>
+                            
+                            <div class="slot-calendar">
+                                <div class="calendar-header">
+                                    <button id="prev-month" class="calendar-nav-button">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <h3 id="calendar-month">May 2025</h3>
+                                    <button id="next-month" class="calendar-nav-button">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <div class="calendar-grid" id="slot-calendar-grid">
+                                    <!-- Calendar will be generated by JavaScript -->
+                                </div>
+                            </div>
+                            
+                            <div class="day-slots" id="day-slots">
+                                <h3 id="selected-date">Select a date to view slots</h3>
+                                <div class="slots-container" id="slots-container">
+                                    <!-- Slots will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Holiday Modal -->
+    <div id="holiday-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Holiday</h2>
+            <form id="holiday-form">
+                <div class="form-group">
+                    <label for="holiday-date">Date</label>
+                    <input type="date" id="holiday-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="holiday-reason">Reason (optional)</label>
+                    <input type="text" id="holiday-reason" placeholder="e.g., Personal leave, Public holiday">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save Holiday</button>
+                    <button type="button" id="cancel-holiday" class="secondary-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Add Override Modal -->
+    <div id="override-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Add Date Override</h2>
+            <form id="override-form">
+                <div class="form-group">
+                    <label for="override-date">Date</label>
+                    <input type="date" id="override-date" required>
+                </div>
+                <div class="form-group">
+                    <label for="override-status">Status</label>
+                    <select id="override-status" required>
+                        <option value="available">Available</option>
+                        <option value="unavailable">Unavailable</option>
+                    </select>
+                </div>
+                <div id="override-hours">
+                    <div class="form-group">
+                        <label for="override-start">Start Time</label>
+                        <input type="time" id="override-start" value="09:00">
+                    </div>
+                    <div class="form-group">
+                        <label for="override-end">End Time</label>
+                        <input type="time" id="override-end" value="17:00">
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save Override</button>
+                    <button type="button" id="cancel-override" class="secondary-button">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
+    <script src="js/doctor-availability.js"></script>
+</body>
+</html>
