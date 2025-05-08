@@ -63,18 +63,34 @@ function initUserMenu() {
 function loadSpecialties() {
     const specialtyFilter = document.getElementById('specialty-filter');
     
-    fetch('http://localhost:8080/api/v1/specialties')
+    // Add a default empty option
+    const defaultOption = document.createElement('option');
+    defaultOption.value = '';
+    defaultOption.textContent = 'All Specialties';
+    specialtyFilter.appendChild(defaultOption);
+
+    // Fetch doctors and extract specialties
+    fetch('http://localhost:8081/api/v1/doctors/search?size=100') // Increase page size to get more doctors
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to load specialties');
+                throw new Error('Failed to load doctors');
             }
             return response.json();
         })
-        .then(specialties => {
-            specialties.forEach(specialty => {
+        .then(data => {
+            // Extract unique specialties from doctor data
+            const specialties = new Set();
+            data.content.forEach(doctor => {
+                if (doctor.speciality) {
+                    specialties.add(doctor.speciality);
+                }
+            });
+            
+            // Add specialties to dropdown
+            Array.from(specialties).sort().forEach(specialty => {
                 const option = document.createElement('option');
-                option.value = specialty.id;
-                option.textContent = specialty.name;
+                option.value = specialty;
+                option.textContent = specialty;
                 specialtyFilter.appendChild(option);
             });
         })
@@ -82,6 +98,28 @@ function loadSpecialties() {
             console.error('Error loading specialties:', error);
         });
 }
+// function loadSpecialties() {
+//     const specialtyFilter = document.getElementById('specialty-filter');
+    
+//     fetch('http://localhost:8081/api/v1/doctors/search')
+//         .then(response => {
+//             if (!response.ok) {
+//                 throw new Error('Failed to load specialties');
+//             }
+//             return response.json();
+//         })
+//         .then(specialties => {
+//             specialties.forEach(specialty => {
+//                 const option = document.createElement('option');
+//                 option.value = specialty.id;
+//                 option.textContent = specialty.name;
+//                 specialtyFilter.appendChild(option);
+//             });
+//         })
+//         .catch(error => {
+//             console.error('Error loading specialties:', error);
+//         });
+// }
 
 function loadDoctors(page = 0, specialty = '') {
     const doctorsContainer = document.getElementById('doctors-container');
@@ -102,7 +140,7 @@ function loadDoctors(page = 0, specialty = '') {
         queryParams += `&specialtyId=${specialty}`;
     }
     
-    fetch(`http://localhost:8080/api/v1/doctors?${queryParams}`)
+    fetch(`http://localhost:8081/api/v1/doctors?${queryParams}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctors');
@@ -168,16 +206,16 @@ function createDoctorItem(doctor) {
                 <div class="doctor-specialty">${doctor.specialization}</div>
                 <div class="doctor-meta">
                     <div class="meta-item">
-                        <i class="fas fa-map-marker-alt"></i> ${doctor.location || 'Not specified'}
+                        <i class="fas fa-map-marker-alt"></i> ${doctor.address || 'Not specified'}
                     </div>
                     <div class="meta-item">
-                        <i class="fas fa-briefcase"></i> ${doctor.experience || '0'} years
+                        <i class="fas fa-briefcase"></i> ${doctor.experienceYears || '0'} years
                     </div>
                 </div>
             </div>
         </div>
         <div class="doctor-item-footer">
-            <div class="doctor-fee">Fee: $${doctor.consultationFee || '50'}</div>
+            <div class="doctor-fee">Fee: &#8377;${doctor.fees || '50'}</div>
             <div class="doctor-rating">
                 <div class="rating-stars">${ratingStars}</div>
                 <span>(${doctor.reviewCount || '0'})</span>
@@ -247,7 +285,7 @@ function selectDoctor(doctorId) {
 }
 
 function loadSelectedDoctor(doctorId) {
-    fetch(`http://localhost:8080/api/v1/doctors/${doctorId}`)
+    fetch(`http://localhost:8081/api/v1/doctors/${doctorId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctor details');
@@ -463,7 +501,7 @@ function loadTimeSlots(date) {
         </div>
     `;
     
-    fetch(`http://localhost:8080/api/v1/doctors/${doctorId}/slots?date=${formattedDate}`)
+    fetch(`http://localhost:8081/api/v1/doctors/${doctorId}/slots?date=${formattedDate}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load time slots');
@@ -741,7 +779,7 @@ function updateAppointmentSummary() {
 function loadUserDetails() {
     const userId = localStorage.getItem('userId');
     
-    fetch(`http://localhost:8080/api/users/${userId}`)
+    fetch(`http://localhost:8081/api/users/${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load user data');
@@ -1018,7 +1056,7 @@ function processPaymentAndBookAppointment() {
     };
     
     // Send appointment data to server
-    fetch('http://localhost:8080/api/v1/appointments', {
+    fetch('http://localhost:8081/api/v1/appointments', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

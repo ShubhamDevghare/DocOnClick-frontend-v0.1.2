@@ -61,7 +61,7 @@ function initUserMenu() {
 function loadSpecialties() {
     const specialtyFilter = document.getElementById('specialty-filter');
     
-    fetch('http://localhost:8080/api/v1/specialties')
+    fetch('http://localhost:8081/api/v1/specialties')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load specialties');
@@ -133,7 +133,7 @@ function loadDoctors(page = 0, filters = {}, sort = 'fullName,asc', searchTerm =
     
     // Note: Other filters (location, availability, gender, rating) are ignored
     
-    fetch(`http://localhost:8080/api/v1/doctors/search?${queryParams}`)
+    fetch(`http://localhost:8081/api/v1/doctors/search?${queryParams}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctors');
@@ -201,10 +201,10 @@ function createDoctorCard(doctor) {
             <div class="doctor-specialty">${doctor.specialization || 'General Practitioner'}</div>
             <div class="doctor-meta">
                 <div class="meta-item">
-                    <i class="fas fa-map-marker-alt"></i> ${doctor.location || 'Not specified'}
+                    <i class="fas fa-map-marker-alt"></i> ${doctor.address || 'Not specified'}
                 </div>
                 <div class="meta-item">
-                    <i class="fas fa-briefcase"></i> ${doctor.experience || '0'} years
+                    <i class="fas fa-briefcase"></i> ${doctor.experienceYears || '0'} years
                 </div>
             </div>
             <div class="doctor-rating">
@@ -213,7 +213,7 @@ function createDoctorCard(doctor) {
             </div>
             <div class="doctor-footer">
                 <div class="consultation-fee">
-                    Fee: <span class="fee-amount">$${doctor.consultationFee || '50'}</span>
+                    Fee: <span class="fee-amount">&#8377;${doctor.fees || '50'}</span>
                 </div>
                 <div class="doctor-actions">
                     <button class="btn btn-sm btn-outline" onclick="viewDoctorDetails(${doctor.id})">View Profile</button>

@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Determine API endpoint based on account type
             const endpoint = accountType === 'DOCTOR' 
-                ? 'http://localhost:8080/api/v1/doctors/signup' 
-                : 'http://localhost:8080/api/users/signup';
+                ? 'http://localhost:8081/api/v1/doctors/signup' 
+                : 'http://localhost:8081/api/users/signup';
             
             // Send the request
             const response = await fetch(endpoint, {

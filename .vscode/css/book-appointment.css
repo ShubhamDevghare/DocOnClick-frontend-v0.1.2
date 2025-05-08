@@ -127,6 +127,7 @@
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
     overflow: hidden;
+    margin: 1rem;
   }
   
   .search-box input {
@@ -151,6 +152,7 @@
   .filter-container {
     display: flex;
     gap: 1rem;
+    margin-bottom: 1rem;
   }
   
   .filter-group {
