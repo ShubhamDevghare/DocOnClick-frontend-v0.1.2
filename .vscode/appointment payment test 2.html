@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Appointment - DocOnClick</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="css/appointment payment test 2.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="user-info">
+                <img src="/placeholder.svg?height=50&width=50" alt="User Avatar" class="user-avatar" id="userAvatar">
+                <div>
+                    <h3 id="userName">Loading...</h3>
+                    <p id="userType">User</p>
+                </div>
+            </div>
+            <div>
+                <button class="btn btn-outline" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+
+        <!-- Alert Messages -->
+        <div class="alert alert-success" id="successAlert"></div>
+        <div class="alert alert-error" id="errorAlert"></div>
+
+        <!-- Booking Steps -->
+        <div class="booking-steps">
+            <div class="step active" id="step-1">
+                <div class="step-number">1</div>
+                <div class="step-text">Select Doctor</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-2">
+                <div class="step-number">2</div>
+                <div class="step-text">Schedule</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-3">
+                <div class="step-number">3</div>
+                <div class="step-text">Patient Details</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-4">
+                <div class="step-number">4</div>
+                <div class="step-text">Payment</div>
+            </div>
+            <div class="step-connector"></div>
+            <div class="step" id="step-5">
+                <div class="step-number">5</div>
+                <div class="step-text">Confirmation</div>
+            </div>
+        </div>
+
+        <!-- Booking Content -->
+        <div class="booking-content">
+            <!-- Step 1: Select Doctor -->
+            <div class="booking-step-content active" id="step-1-content">
+                <div class="step-title">
+                    <h2>Select a Doctor</h2>
+                    <p>Choose a doctor from our network of healthcare professionals</p>
+                </div>
+                
+                <div class="search-container">
+                    <div class="form-group">
+                        <label for="speciality">Speciality</label>
+                        <select class="form-control" id="speciality">
+                            <option value="">All Specialities</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="minRating">Minimum Rating</label>
+                        <select class="form-control" id="minRating">
+                            <option value="">Any Rating</option>
+                            <option value="4">4+ Stars</option>
+                            <option value="3">3+ Stars</option>
+                            <option value="2">2+ Stars</option>
+                        </select>
+                    </div>
+                    <button class="btn btn-primary" onclick="searchDoctors()">
+                        <i class="fas fa-search"></i> Search
+                    </button>
+                </div>
+                
+                <div id="doctorsContainer">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Loading doctors...</p>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button class="btn btn-outline" onclick="window.location.href='index.html'">Back to Home</button>
+                    <button class="btn btn-primary" id="nextToStep2" disabled>Next: Schedule</button>
+                </div>
+            </div>
+            
+            <!-- Step 2: Schedule -->
+            <div class="booking-step-content" id="step-2-content">
+                <div class="step-title">
+                    <h2>Select Date & Time</h2>
+                    <p>Choose a convenient date and time for your appointment</p>
+                </div>
+                
+                <div id="selectedDoctorInfo" class="booking-summary">
+                    <!-- Selected doctor info will be displayed here -->
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" id="prevMonth"><i class="fas fa-chevron-left"></i></button>
+                        <h3 id="currentMonth">Loading...</h3>
+                        <button class="calendar-nav" id="nextMonth"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated here -->
+                    </div>
+                </div>
+                
+                <div class="time-slots-container">
+                    <h3>Available Time Slots</h3>
+                    <div class="time-slots-grid" id="timeSlotsGrid">
+                        <p style="text-align: center; color: #666; grid-column: 1/-1;">Please select a date to view available time slots</p>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button class="btn btn-outline" id="backToStep1">Back: Select Doctor</button>
+                    <button class="btn btn-primary" id="nextToStep3" disabled>Next: Patient Details</button>
+                </div>
+            </div>
+            
+            <!-- Step 3: Patient Details -->
+            <div class="booking-step-content" id="step-3-content">
+                <div class="step-title">
+                    <h2>Patient Details</h2>
+                    <p>Provide information about the patient</p>
+                </div>
+                
+                <div id="appointmentSummary" class="booking-summary">
+                    <!-- Appointment summary will be displayed here -->
+                </div>
+                
+                <div class="patient-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="patientName">Full Name *</label>
+                            <input type="text" class="form-control" id="patientName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientGender">Gender *</label>
+                            <select class="form-control" id="patientGender" required>
+                                <option value="">Select Gender</option>
+                                <option value="MALE">Male</option>
+                                <option value="FEMALE">Female</option>
+                                <option value="OTHER">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="patientDOB">Date of Birth *</label>
+                            <input type="date" class="form-control" id="patientDOB" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="patientPhone">Phone Number *</label>
+                            <input type="tel" class="form-control" id="patientPhone" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientEmail">Email Address *</label>
+                        <input type="email" class="form-control" id="patientEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientAddress">Address *</label>
+                        <textarea class="form-control" id="patientAddress" rows="3" required></textarea>
+                    </div>
+                </div>
+                
+                <div class="step-actions">
+                    <button class="btn btn-outline" id="backToStep2">Back: Schedule</button>
+                    <button class="btn btn-primary" id="nextToStep4">Next: Payment</button>
+                </div>
+            </div>
+            
+            <!-- Step 4: Payment -->
+            <div class="booking-step-content" id="step-4-content">
+                <div class="step-title">
+                    <h2>Payment</h2>
+                    <p>Complete your payment to confirm the appointment</p>
+                </div>
+                
+                <div id="paymentSummary" class="booking-summary">
+                    <!-- Payment summary will be displayed here -->
+                </div>
+                
+                <div class="step-actions">
+                    <button class="btn btn-outline" id="backToStep3">Back: Patient Details</button>
+                    <button class="btn btn-primary" id="makePayment">Make Payment</button>
+                </div>
+            </div>
+            
+            <!-- Step 5: Confirmation -->
+            <div class="booking-step-content" id="step-5-content">
+                <div class="confirmation-container">
+                    <div class="confirmation-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <h2>Appointment Confirmed!</h2>
+                    <p>Your appointment has been successfully booked</p>
+                    
+                    <div id="confirmationDetails" class="booking-summary">
+                        <!-- Confirmation details will be displayed here -->
+                    </div>
+                    
+                    <div class="step-actions" style="justify-content: center;">
+                        <button class="btn btn-primary" onclick="window.location.href='user-dashboard.html'">
+                            <i class="fas fa-home"></i> Go to Dashboard
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script src="js/appointment payment test 2.js"></script>
+</body>
+</html>

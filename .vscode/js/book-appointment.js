@@ -1,3 +1,4 @@
+// book-appointment.js
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is logged in
     const userId = localStorage.getItem('userId');
@@ -70,7 +71,7 @@ function loadSpecialties() {
     specialtyFilter.appendChild(defaultOption);
 
     // Fetch doctors and extract specialties
-    fetch('http://localhost:8081/api/v1/doctors/search?size=100') // Increase page size to get more doctors
+    fetch('http://localhost:8080/api/v1/doctors/search?size=100') // Increase page size to get more doctors
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctors');
@@ -101,7 +102,7 @@ function loadSpecialties() {
 // function loadSpecialties() {
 //     const specialtyFilter = document.getElementById('specialty-filter');
     
-//     fetch('http://localhost:8081/api/v1/doctors/search')
+//     fetch('http://localhost:8080/api/v1/doctors/search')
 //         .then(response => {
 //             if (!response.ok) {
 //                 throw new Error('Failed to load specialties');
@@ -140,7 +141,7 @@ function loadDoctors(page = 0, specialty = '') {
         queryParams += `&specialtyId=${specialty}`;
     }
     
-    fetch(`http://localhost:8081/api/v1/doctors?${queryParams}`)
+    fetch(`http://localhost:8080/api/v1/doctors?${queryParams}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctors');
@@ -285,7 +286,7 @@ function selectDoctor(doctorId) {
 }
 
 function loadSelectedDoctor(doctorId) {
-    fetch(`http://localhost:8081/api/v1/doctors/${doctorId}`)
+    fetch(`http://localhost:8080/api/v1/doctors/${doctorId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load doctor details');
@@ -501,7 +502,7 @@ function loadTimeSlots(date) {
         </div>
     `;
     
-    fetch(`http://localhost:8081/api/v1/doctors/${doctorId}/slots?date=${formattedDate}`)
+    fetch(`http://localhost:8080/api/v1/doctors/${doctorId}/slots?date=${formattedDate}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load time slots');
@@ -779,7 +780,7 @@ function updateAppointmentSummary() {
 function loadUserDetails() {
     const userId = localStorage.getItem('userId');
     
-    fetch(`http://localhost:8081/api/users/${userId}`)
+    fetch(`http://localhost:8080/api/users/${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load user data');
@@ -1056,7 +1057,7 @@ function processPaymentAndBookAppointment() {
     };
     
     // Send appointment data to server
-    fetch('http://localhost:8081/api/v1/appointments', {
+    fetch('http://localhost:8080/api/v1/appointments', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

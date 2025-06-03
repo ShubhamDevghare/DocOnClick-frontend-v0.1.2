@@ -1,0 +1,332 @@
+/* doctor-schedule.css */
+/* Schedule Tabs */
+.schedule-tabs {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 1.5rem;
+}
+
+.tab-btn {
+    padding: 0.75rem 1.25rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.tab-btn:hover {
+    color: var(--primary);
+}
+
+.tab-btn.active {
+    color: var(--primary);
+    border-bottom-color: var(--primary);
+}
+
+.tab-content {
+    margin-bottom: 2rem;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+/* Day Cards */
+.day-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.day-card {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.day-card:hover {
+    box-shadow: var(--shadow-md);
+}
+
+.day-header {
+    padding: 1rem;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.day-header h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.add-time-range-btn {
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.add-time-range-btn:hover {
+    background-color: var(--primary);
+    color: var(--white);
+}
+
+.time-ranges {
+    padding: 1rem;
+    min-height: 100px;
+}
+
+.time-range {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: var(--background);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.5rem;
+}
+
+.time-range:last-child {
+    margin-bottom: 0;
+}
+
+.time-range-info {
+    font-size: 0.875rem;
+}
+
+.time-range-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.time-range-actions button {
+    background: none;
+    border: none;
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+}
+
+.edit-time-range {
+    color: var(--primary);
+}
+
+.edit-time-range:hover {
+    background-color: var(--primary-light);
+}
+
+.delete-time-range {
+    color: var(--danger);
+}
+
+.delete-time-range:hover {
+    background-color: var(--danger-light);
+}
+
+.no-ranges-message {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Override Calendar */
+.override-calendar {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-header button {
+    background: none;
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-secondary);
+    transition: var(--transition);
+}
+
+.calendar-header button:hover {
+    background-color: var(--background);
+    color: var(--primary);
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-day-name {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+    padding: 0.5rem 0;
+    font-weight: 500;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.875rem;
+    position: relative;
+    transition: var(--transition);
+}
+
+.calendar-day:hover {
+    background-color: var(--primary-light);
+}
+
+.calendar-day.today {
+    background-color: var(--primary);
+    color: var(--white);
+    font-weight: 500;
+}
+
+.calendar-day.other-month {
+    color: var(--text-tertiary);
+}
+
+.calendar-day.has-override {
+    border: 2px solid var(--primary);
+}
+
+.calendar-day.is-holiday {
+    background-color: var(--danger-light);
+    color: var(--danger);
+}
+
+/* Overrides List */
+.overrides-list {
+    background-color: var(--white);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 1.25rem;
+}
+
+.overrides-list h3 {
+    margin-bottom: 1rem;
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.override-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem;
+    background-color: var(--background);
+    border-radius: var(--radius-sm);
+    margin-bottom: 0.75rem;
+}
+
+.override-item:last-child {
+    margin-bottom: 0;
+}
+
+.override-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.override-date {
+    font-weight: 500;
+    font-size: 0.875rem;
+}
+
+.override-time {
+    font-size: 0.75rem;
+    color: var(--text-secondary);
+}
+
+.override-status {
+    font-size: 0.75rem;
+}
+
+.override-status.available {
+    color: var(--secondary);
+}
+
+.override-status.unavailable {
+    color: var(--danger);
+}
+
+.override-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.no-overrides-message {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem 0;
+}
+
+/* Form Styles */
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-help {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+    margin-top: 0.25rem;
+}
+
+/* Loading Message */
+.loading-message {
+    color: var(--text-tertiary);
+    font-size: 0.875rem;
+    text-align: center;
+    padding: 1rem 0;
+}

@@ -1,3 +1,4 @@
+// user Profile.js :
 document.addEventListener('DOMContentLoaded', function() {
     // Check if user is logged in
     const userId = localStorage.getItem('userId');
@@ -80,7 +81,7 @@ function initUserMenu() {
 function loadUserProfile() {
     const userId = localStorage.getItem('userId');
     
-    fetch(`http://localhost:8081/api/users/${userId}`)
+    fetch(`http://localhost:8080/api/users/${userId}`)
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to load user data');
@@ -163,7 +164,7 @@ function updateProfile() {
     // Append the userData blob to the FormData
     formData.append('userData', userDataBlob);
     
-    fetch(`http://localhost:8081/api/users/${userId}`, {
+    fetch(`http://localhost:8080/api/users/${userId}`, {
         method: 'PUT',
         body: formData
     })
@@ -218,7 +219,7 @@ function updatePassword() {
     
     // In a real application, you would send the current password for verification
     // and the new password for updating. This is a simplified example.
-    fetch(`http://localhost:8081/api/users/${userId}/password`, {
+    fetch(`http://localhost:8080/api/users/${userId}/password`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
@@ -291,7 +292,7 @@ function uploadProfileImage(file) {
     const profileImage = document.getElementById('profile-image');
     profileImage.style.opacity = '0.5';
     
-    fetch(`http://localhost:8081/api/users/${userId}`, {
+    fetch(`http://localhost:8080/api/users/${userId}`, {
         method: 'PUT',
         body: formData
     })

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Schedule Management</title>
+    <link rel="stylesheet" href="css/doctor-schedule-management.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <div class="profile-section">
+                <div class="profile-img-container">
+                    <img id="doctorProfileImg" src="/placeholder.svg?height=100&width=100" alt="Doctor Profile">
+                </div>
+                <h3 id="doctorName">Loading...</h3>
+                <p id="doctorSpecialization">Loading...</p>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active" data-target="dashboard">
+                        <i class="fas fa-th-large"></i> Dashboard
+                    </li>
+                    <li data-target="calendar-view">
+                        <i class="fas fa-calendar-alt"></i> Calendar
+                    </li>
+                    <li data-target="weekly-schedule">
+                        <i class="fas fa-calendar-week"></i> Weekly Schedule
+                    </li>
+                    <li data-target="date-overrides">
+                        <i class="fas fa-calendar-day"></i> Special Days
+                    </li>
+                    <li data-target="holidays">
+                        <i class="fas fa-umbrella-beach"></i> Holidays
+                    </li>
+                    <li data-target="settings">
+                        <i class="fas fa-cog"></i> Settings
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+        
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Doctor Schedule Management</h1>
+                <div class="user-controls">
+                    <button id="logoutBtn" class="btn btn-outline">
+                        <i class="fas fa-sign-out-alt"></i> Logout
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <div class="section-header">
+                    <h2>Dashboard</h2>
+                    <p>Overview of your schedule and appointments</p>
+                </div>
+                
+                <div class="dashboard-grid">
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Today's Appointments</h3>
+                            <p id="todayAppointments" class="card-value">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-user-clock"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Available Slots Today</h3>
+                            <p id="availableSlotsToday" class="card-value">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-times"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Upcoming Holidays</h3>
+                            <p id="upcomingHolidays" class="card-value">0</p>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar-day"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Special Schedules</h3>
+                            <p id="specialSchedules" class="card-value">0</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="dashboard-row">
+                    <div class="dashboard-column">
+                        <div class="mini-calendar-container">
+                            <h3>Calendar Overview</h3>
+                            <div id="miniCalendar" class="mini-calendar"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-column">
+                        <div class="upcoming-container">
+                            <h3>Today's Schedule</h3>
+                            <div id="todaySchedule" class="today-schedule">
+                                <div class="loading-spinner">
+                                    <i class="fas fa-spinner fa-spin"></i> Loading...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Calendar View Section -->
+            <section id="calendar-view" class="content-section">
+                <div class="section-header">
+                    <h2>Calendar View</h2>
+                    <p>Manage your schedule with a comprehensive calendar view</p>
+                </div>
+                
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prevMonth" class="btn btn-icon">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <h3 id="currentMonthYear">May 2025</h3>
+                        <button id="nextMonth" class="btn btn-icon">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="calendar-legend">
+                        <div class="legend-item">
+                            <span class="legend-color available"></span>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color partially-booked"></span>
+                            <span>Partially Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color fully-booked"></span>
+                            <span>Fully Booked</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color holiday"></span>
+                            <span>Holiday</span>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-color special-day"></span>
+                            <span>Special Schedule</span>
+                        </div>
+                    </div>
+                    
+                    <div class="calendar-grid">
+                        <div class="calendar-weekdays">
+                            <div>Sun</div>
+                            <div>Mon</div>
+                            <div>Tue</div>
+                            <div>Wed</div>
+                            <div>Thu</div>
+                            <div>Fri</div>
+                            <div>Sat</div>
+                        </div>
+                        <div id="calendarDays" class="calendar-days"></div>
+                    </div>
+                </div>
+                
+                <div id="dayDetailsContainer" class="day-details-container">
+                    <div class="day-details-header">
+                        <h3 id="selectedDateHeader">No Date Selected</h3>
+                        <div class="day-status" id="dayStatus"></div>
+                    </div>
+                    
+                    <div id="dayDetailsContent" class="day-details-content">
+                        <p class="select-date-message">Select a date on the calendar to view details</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Weekly Schedule Section -->
+            <section id="weekly-schedule" class="content-section">
+                <div class="section-header">
+                    <h2>Weekly Schedule</h2>
+                    <p>Configure your regular weekly availability</p>
+                </div>
+                
+                <div class="weekly-schedule-container">
+                    <div class="days-container">
+                        <!-- Days of week will be generated here -->
+                    </div>
+                    
+                    <div class="time-slots-container" id="timeSlotsContainer">
+                        <div class="time-slots-header">
+                            <h3 id="selectedDayHeader">Select a day to manage time slots</h3>
+                        </div>
+                        <div class="day-availability">
+                            <label class="switch">
+                                <input type="checkbox" id="dayAvailabilityToggle">
+                                <span class="slider round"></span>
+                            </label>
+                            <span>Available on this day</span>
+                        </div>
+                        
+                        <div id="timeSlotsList" class="time-slots-list">
+                            <!-- Time slots will be displayed here -->
+                        </div>
+                        
+                        <div class="add-time-slot">
+                            <h4>Add New Time Slot</h4>
+                            <div class="time-slot-form">
+                                <div class="form-group">
+                                    <label for="startTime">Start Time:</label>
+                                    <input type="time" id="startTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="endTime">End Time:</label>
+                                    <input type="time" id="endTime" required>
+                                </div>
+                                <button id="addTimeSlotBtn" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Time Slot
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Date Overrides Section -->
+            <section id="date-overrides" class="content-section">
+                <div class="section-header">
+                    <h2>Special Day Schedules</h2>
+                    <p>Set different schedules for specific dates</p>
+                </div>
+                
+                <div class="date-override-container">
+                    <div class="date-selector">
+                        <label for="overrideDate">Select Date:</label>
+                        <input type="date" id="overrideDate">
+                        <button id="checkDateBtn" class="btn btn-outline">Check Schedule</button>
+                    </div>
+                    
+                    <div class="override-details">
+                        <div class="override-status">
+                            <h3>Date: <span id="selectedOverrideDate">Select a date</span></h3>
+                            <div class="day-availability">
+                                <label class="switch">
+                                    <input type="checkbox" id="overrideDayAvailabilityToggle">
+                                    <span class="slider round"></span>
+                                </label>
+                                <span>Available on this date</span>
+                            </div>
+                        </div>
+                        
+                        <div id="overrideTimeSlotsList" class="time-slots-list">
+                            <!-- Override time slots will be displayed here -->
+                        </div>
+                        
+                        <div class="add-time-slot">
+                            <h4>Add Special Hours</h4>
+                            <div class="time-slot-form">
+                                <div class="form-group">
+                                    <label for="overrideStartTime">Start Time:</label>
+                                    <input type="time" id="overrideStartTime" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="overrideEndTime">End Time:</label>
+                                    <input type="time" id="overrideEndTime" required>
+                                </div>
+                                <button id="addOverrideTimeSlotBtn" class="btn btn-primary">
+                                    <i class="fas fa-plus"></i> Add Time Slot
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="override-actions">
+                            <button id="saveOverrideBtn" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Special Schedule
+                            </button>
+                            <button id="deleteOverrideBtn" class="btn btn-danger">
+                                <i class="fas fa-trash"></i> Delete Special Schedule
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Holidays Section -->
+            <section id="holidays" class="content-section">
+                <div class="section-header">
+                    <h2>Manage Holidays</h2>
+                    <p>Mark days when you're not available for appointments</p>
+                </div>
+                
+                <div class="holidays-container">
+                    <div class="holiday-actions">
+                        <button id="markTodayHolidayBtn" class="btn btn-primary">
+                            <i class="fas fa-umbrella-beach"></i> Mark Today as Holiday
+                        </button>
+                        
+                        <div class="future-holiday">
+                            <div class="form-group">
+                                <label for="holidayDate">Select Date:</label>
+                                <input type="date" id="holidayDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="holidayReason">Reason (Optional):</label>
+                                <input type="text" id="holidayReason" placeholder="Enter reason">
+                            </div>
+                            <button id="markDateHolidayBtn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Holiday
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="holidays-list-container">
+                        <h3>Your Holidays</h3>
+                        <div id="holidaysList" class="holidays-list">
+                            <!-- Holidays will be displayed here -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Settings Section -->
+            <section id="settings" class="content-section">
+                <div class="section-header">
+                    <h2>Schedule Settings</h2>
+                    <p>Configure your appointment slot duration and other settings</p>
+                </div>
+                
+                <div class="settings-container">
+                    <div class="setting-item">
+                        <h3>Appointment Slot Duration</h3>
+                        <p>Set the default duration for each appointment slot</p>
+                        
+                        <div class="slot-duration-control">
+                            <div class="form-group">
+                                <label for="slotDuration">Duration (minutes):</label>
+                                <input type="number" id="slotDuration" min="10" step="5" value="30">
+                            </div>
+                            <button id="updateSlotDurationBtn" class="btn btn-primary">
+                                Update Duration
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Generate Appointment Slots</h3>
+                        <p>Regenerate appointment slots for future dates based on your schedule</p>
+                        
+                        <div class="generate-slots-control">
+                            <div class="form-group">
+                                <label for="startDate">Start Date:</label>
+                                <input type="date" id="startDate">
+                            </div>
+                            <div class="form-group">
+                                <label for="endDate">End Date:</label>
+                                <input type="date" id="endDate">
+                            </div>
+                            <button id="generateSlotsBtn" class="btn btn-primary">
+                                Generate Slots
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="setting-item">
+                        <h3>Appearance Settings</h3>
+                        <p>Customize the appearance of your schedule management interface</p>
+                        
+                        <div class="appearance-control">
+                            <div class="form-group">
+                                <label for="themeSelector">Theme:</label>
+                                <select id="themeSelector" class="form-control">
+                                    <option value="light">Light</option>
+                                    <option value="dark">Dark</option>
+                                    <option value="blue">Blue</option>
+                                </select>
+                            </div>
+                            <button id="applyThemeBtn" class="btn btn-primary">
+                                Apply Theme
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <!-- Slot Details Modal -->
+    <div id="slotDetailsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="slotDetailsTitle">Appointment Slot Details</h3>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body" id="slotDetailsBody">
+                <!-- Slot details will be displayed here -->
+            </div>
+            <div class="modal-footer">
+                <button id="closeSlotDetailsBtn" class="btn btn-outline">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="toast" class="toast">
+        <div class="toast-content">
+            <i id="toastIcon" class="fas fa-check-circle"></i>
+            <div class="toast-message" id="toastMessage"></div>
+        </div>
+        <div class="toast-progress"></div>
+    </div>
+    
+    <div id="loadingOverlay" class="loading-overlay">
+        <div class="spinner"></div>
+    </div>
+    
+    <script src="js/doctor-schedule-management.js"></script>
+</body>
+</html>
